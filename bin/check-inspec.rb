@@ -87,12 +87,12 @@ class CheckInspec < Sensu::Plugin::Check::CLI
   def run
     runner = ::Inspec::Runner.new(opts)
     runner.add_target(config[:tests_dir])
-    # 101 is a success as well (exit with no fails but has skipped controls)
     exit_code = runner.run
     runner.report[:controls].map do |control|
       send_critical('check_name', control[:code_desc]) unless %w[passed].include?(control[:status])
     end
-    exit_with(:ok, 'applicable controls passed') if exit_code == 0 || exit_code == 101
+    # 101 is a success as well (exit with no fails but has skipped controls)
+    exit_with(:ok, 'applicable controls passed') if [0, 101].include?(exit_code)
     exit_with(:critical, 'exit code no bueno')
   end
 
