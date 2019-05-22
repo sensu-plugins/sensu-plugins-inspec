@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.description            = 'Sensu InSpec'
   s.email                  = '<sensu-users@googlegroups.com>'
   s.executables            = Dir.glob('bin/**/*.rb').map { |file| File.basename(file) }
-  s.files                  = Dir.glob('{bin,lib}/**/*') + %w(LICENSE README.md CHANGELOG.md)
+  s.files                  = Dir.glob('{bin,lib}/**/*') + %w[LICENSE README.md CHANGELOG.md]
   s.homepage               = 'https://github.com/sensu-plugins/sensu-plugins-inspec'
   s.license                = 'MIT'
   s.metadata               = { 'maintainer'         => 'sensu-plugin',
