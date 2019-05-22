@@ -5,17 +5,27 @@
 
 ## Functionality
 
+This check executes [InSpec][1] profiles and generates a Sensu event for each non-passing control.
+
 ## Files
  * bin/check-inspec.rb
 
 ## Usage
 
-Run test suite:
+Run a local profile:
 
-`check-inspec -d /tmp/my_tests`
+`check-inspec -d /tmp/my_inspec_profile`
+
+Run a remote profile:
+
+`check-inspec -d https://my-inspec-profile.s3.amazonaws.com/example-profile.tar.gz`
+
 
 ## Installation
 
 [Installation and Setup](http://sensu-plugins.io/docs/installation_instructions.html)
 
 ## Notes
+
+
+[1]: https://inspec.io
