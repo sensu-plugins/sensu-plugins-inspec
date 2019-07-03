@@ -84,12 +84,22 @@ class CheckInspec < Sensu::Plugin::Check::CLI
     }
   end
 
+  def control_check_name(control)
+    file_path = control[:source_location][:ref].gsub('/', '__')
+    "#{file_path}_line#{control[:source_location][:line]}"
+  end
+
   def run
     runner = ::Inspec::Runner.new(opts)
     runner.add_target(config[:tests_dir])
     exit_code = runner.run
-    runner.report[:controls].map do |control|
-      send_critical('check_name', control[:code_desc]) unless %w[passed].include?(control[:status])
+    runner.report[:profiles].each do |profile|
+      profile[:controls].each do |control|
+        control[:results].each do |result|
+          check_name = control_check_name(control)
+          send_critical(check_name, result[:code_desc]) unless %w[passed].include?(result[:status])
+        end
+      end
     end
     # 101 is a success as well (exit with no fails but has skipped controls)
     exit_with(:ok, 'applicable controls passed') if [0, 101].include?(exit_code)
