@@ -1,6 +1,8 @@
 #! /usr/bin/env ruby
+# frozen_string_literal: false
+
 #
-#   check-inspec
+# check-inspec
 #
 # DESCRIPTION:
 #   Runs inspec controls against your servers.
@@ -38,9 +40,6 @@ require 'inspec'
 require 'sensu-plugin/check/cli'
 require 'pry'
 
-#
-#
-#
 class CheckInspec < Sensu::Plugin::Check::CLI
   option :tests_dir,
          short: '-d /tmp/dir',
