@@ -11,7 +11,16 @@ This check executes [InSpec][1] profiles and generates a Sensu event for each no
  * bin/check-inspec.rb
 
 ## Usage
+```
+check-inspec.rb (options)
+    -l, --handler HANDLER
+    -t, --spec-tests spec/test
+    -d, --tests-dir /tmp/dir
 
+```
+
+
+## Examples
 Run a local profile and set Sensu event handler to example_handler:
 
 `check-inspec -d /tmp/my_inspec_profile -l example_handler`
