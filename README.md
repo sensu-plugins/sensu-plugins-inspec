@@ -12,13 +12,13 @@ This check executes [InSpec][1] profiles and generates a Sensu event for each no
 
 ## Usage
 
-Run a local profile:
+Run a local profile and set Sensu event handler to example_handler:
 
-`check-inspec -d /tmp/my_inspec_profile`
+`check-inspec -d /tmp/my_inspec_profile -l example_handler`
 
-Run a remote profile:
+Run a remote profile and set Sensu event handler to example_handker:
 
-`check-inspec -d https://my-inspec-profile.s3.amazonaws.com/example-profile.tar.gz`
+`check-inspec -d https://my-inspec-profile.s3.amazonaws.com/example-profile.tar.gz -l example_handler`
 
 
 ## Installation
