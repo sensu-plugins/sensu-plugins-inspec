@@ -46,10 +46,10 @@ class CheckInspec < Sensu::Plugin::Check::CLI
          long: '--tests-dir /tmp/dir',
          required: true
 
-  option :spec_tests,
-         short: '-t spec/test',
-         long: '--spec-tests spec/test',
-         default: nil
+  #option :spec_tests,
+  #       short: '-t spec/test',
+  #       long: '--spec-tests spec/test',
+  #       default: nil
 
   option :handler,
          short: '-l HANDLER',
