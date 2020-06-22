@@ -1,10 +1,19 @@
 language: ruby
+services:
+- docker  
 cache:
 - bundler
 install:
 - bundle install
 rvm:
+- 2.3.0
 - 2.4.1
+notifications:
+  email:
+    recipients:
+    - sensu-plugin@sensu-plugins.io
+    on_success: change
+    on_failure: always
 script:
 - bundle exec rake default
 - gem build sensu-plugins-inspec.gemspec
@@ -12,6 +21,15 @@ script:
 before_deploy:
 - bash -c "[ ! -d bonsai/ ] && git clone https://github.com/sensu/sensu-go-bonsai-asset.git bonsai || echo 'bonsai/ exists, skipping git clone'"
 deploy:
+- provider: rubygems
+  api_key:
+    secure: MA9lRNkP7h07yWS10BZ6ZdlWNdgKB4UU5OyLiwM+IFB8uWMM/l5OsCThYkPPRTNCcGR6O2QaXukgKSz8TX+c3b/+ocMa2iJRnREIkH6/F0ujdmMmtVFFh8/lUdtlxdg3i7HqhjbhZgUNPbDUI5eVO72QAb4s20Idyw92kPEFBXU=
+  gem: sensu-plugins-disk-checks
+  on:
+    tags: true
+    all_branches: true
+    rvm: 2.4.1
+    repo: sensu-plugins/sensu-plugins-disk-checks
 - provider: script
   script: bonsai/ruby-runtime/travis-build-ruby-plugin-assets.sh sensu-plugins-inspec
   skip_cleanup: true
@@ -19,6 +37,3 @@ deploy:
     tags: true
     all_branches: true
     rvm: 2.4.1
-env:
-  global:
-    secure: g5STbujBidWFI1Mj+dnoMGpPJvcMmKPdPeML/XUMxY9uoJm82FstvXqSUaT8W+xAgfzjTZL7F+bf6OeJzYswkDLz8t4YQMpnPnFZEavcdzaezBr8Dz+ysTvykY6qLTvOa67E1525Wea1VOspdoK4WNKptZ93o4xbk2L0YOYpDX83zO3AgzqvfPIwLNdog5548OceUrqPCbhLKJmLg5p0fyRL1jPrP3YSZ581GhlFpGegkw+aQ36+JJ2rprimM1fBPskeQI+3fQADIxF/IqwIfLsjDWDnYyjlKly4Jc9laVq2JVr0msMS6NcuVRcH6fGK0VShssne20VJwaQEqEJyiZ3ldqvvOT8AwhAxi+318nFUNnLfUougdhE6cQogmLxQkDhqEQpj/OmpXwQg0weRQhp4ekICPgTMRYLqQqfVuklCwXbd1DYmFWKDLgIpZVOtlPt0nfiXiN8IdFMW8ROemwkPm+igcz7WzHL88GJMjjwnVsadsp3hvsWRWP/2SeEFW5sS5437mIPGh9V8aPl6omqTiWQPWnGwOuUkz/zLrtDXkSG241eq/8Ay/j0QE1DISshWjmRPm2quo6BL+cyJUVE7NDnYgXIDSqcvyEbXlV64LDeFFoY11tqJD6FK+I4lnWxOM/HsIkboz56HkppVr6P3yJrwRANvJDyAdmtIVfE=
